@@ -1,0 +1,30 @@
+<mat-drawer-container class="dashboard-container" autosize>
+  <mat-drawer #drawer  mode="side">
+    <p class="flex justify-center p-6 ">Logo</p>
+ <ul class=" flex flex-col gap-5 p-5 text-center">
+  <li>Link1</li>
+  <li>Link2</li>
+  <li>Link3</li>
+  <li>Link4</li>
+ </ul>
+
+<div class="flex gap-1 m-1">
+ <button class=" text-sm p-1 text-white bg-gray-400 ">Registrarse</button>
+ <button class=" text-sm p-1 text-white bg-gray-400 ">Ingresar</button>
+</div>
+  </mat-drawer>
+
+  <div >
+    <mat-toolbar color="primary"  >
+      <button mat-icon-button (click)="drawer.toggle()" class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="text-xl pt-1.5">Instituto Escolar</span>
+      <span class="example-spacer"></span>
+    </mat-toolbar>
+
+<app-users></app-users>
+
+  </div>
+
+</mat-drawer-container>
