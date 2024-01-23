@@ -9,6 +9,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { SharedModule } from '../../../../shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
     UsersFormComponent
   ],
   imports: [
-    CommonModule,MatTableModule,MatFormFieldModule,MatInputModule,MatSelectModule,ReactiveFormsModule,MatIcon,MatButtonModule
+    CommonModule,MatTableModule,MatFormFieldModule,MatInputModule,MatSelectModule,ReactiveFormsModule,MatIcon,MatButtonModule,SharedModule
   ],
   exports: [
     UsersComponent
