@@ -2,15 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FullNamePipe } from './full-name.pipe';
 
+import { HighlightedDirective } from './highlighted.directive';
+
 
 
 @NgModule({
   declarations: [
-    FullNamePipe
+    FullNamePipe,
+
+    HighlightedDirective
   ],
   imports: [
     CommonModule
   ],
-  exports:[FullNamePipe],
+  exports:[FullNamePipe,HighlightedDirective],
 })
 export class SharedModule { }
