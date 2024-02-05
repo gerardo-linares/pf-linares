@@ -1,0 +1,55 @@
+<h2 mat-dialog-title appUppercaseTitles class="text-black p-3 text-center bg-white/80 rounded mb-8">Usuario</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="userFormEdit" class="py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <mat-form-field class="example-form-field">
+        <mat-label class="pt-4">Nombre</mat-label>
+        <input matInput formControlName="firstName" type="text">
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="lastName" type="text">
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" type="password">
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field">
+        <mat-label>Pais</mat-label>
+        <input matInput formControlName="country" type="text">
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field">
+        <mat-label>Correo</mat-label>
+        <input matInput formControlName="email" type="email">
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="rol">
+          <mat-option value="Admin">Administrador</mat-option>
+          <mat-option value="User">Usuario</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field">
+        <mat-label>Curso</mat-label>
+        <mat-select formControlName="course">
+          <mat-option value="Angular">Angular</mat-option>
+          <mat-option value="React">React</mat-option>
+          <mat-option value="JavaScript">JavaScript</mat-option>
+          <mat-option value="Python">Python</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close class="boton">Cancelar</button>
+  <button mat-button (click)="onSave()" class="boton">Guardar</button>
+</mat-dialog-actions>

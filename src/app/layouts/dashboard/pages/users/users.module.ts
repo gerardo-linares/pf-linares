@@ -3,25 +3,55 @@ import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users.component';
 import {MatTableModule} from '@angular/material/table';
 import { UsersFormComponent } from './components/users-form/users-form.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatIcon } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import { UsersService } from './users.service';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../../../shared/shared.module';
-
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { UsersRoutingModule } from './users-routing.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { UsersDialogComponent } from './components/users-dialog/users-dialog.component';
+import { UserDetailComponent } from './pages/user-details/user-details.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
-    UsersFormComponent
+    UsersFormComponent,
+    UserDetailComponent,
+    UsersDialogComponent,
   ],
   imports: [
-    CommonModule,MatTableModule,MatFormFieldModule,MatInputModule,MatSelectModule,ReactiveFormsModule,MatIcon,MatButtonModule,SharedModule
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    SharedModule,
+    UsersRoutingModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule,
+    CommonModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    UsersRoutingModule,
   ],
-  exports: [
-    UsersComponent
-  ]
+  exports: [UsersComponent],
+  providers: [UsersService], 
 })
 export class UsersModule { }
+

@@ -1,32 +1,46 @@
-<app-sidebar></app-sidebar>
-<mat-drawer-container class="dashboard-container" autosize>
-  <mat-drawer #drawer  mode="side">
-    <p class="flex justify-center p-6 ">Logo</p>
- <ul class=" flex flex-col gap-5 p-5 text-center">
-  <li>Link1</li>
-  <li>Link2</li>
-  <li>Link3</li>
-  <li>Link4</li>
- </ul>
+<mat-drawer-container class="dashboard-container fondo" autosize>
+    <mat-drawer #drawer class="side" mode="side">
+      <span><img src="../../../assets/logo.jpg" alt="logo" class="logo mx-auto pt-2"></span>
+      @if (showFiller) {
+        <div class="text-white text-center">
+        Ingresar
+        </div>
+      }
 
-<div class="flex gap-1 m-1">
- <button class=" text-sm p-1 text-white bg-gray-400 ">Registrarse</button>
- <button class=" text-sm p-1 text-white bg-gray-400 ">Ingresar</button>
-</div>
-  </mat-drawer>
+      <mat-nav-list role="list" class="py-5 text-center">
+        <a #homeLink="routerLinkActive" routerLinkActive [activated]="homeLink.isActive" routerLink='home' mat-list-item class="listLinks">Inicio</a>
+        <a #usersLink='routerLinkActive' routerLinkActive [activated]="usersLink.isActive" routerLink='users' mat-list-item class="listLinks">Usuarios</a>
+        <a #coursesLink='routerLinkActive' routerLinkActive [activated]="coursesLink.isActive" routerLink='courses' mat-list-item class="listLinks">Cursos</a>
+        <a (click)="logout()" mat-list-item class="listLinks">Salir</a>
+      </mat-nav-list>
 
-  <div >
-    <mat-toolbar color="primary"  >
-      <button mat-icon-button (click)="drawer.toggle()" class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
+      <button  mat-raised-button class="boton p-2 m-2">
+        Registrarse
       </button>
-      <span class="text-xl pt-1.5" appHighlighted appUppercasetitle >Instituto Escolar</span>
-      <span class="example-spacer"></span>
-    </mat-toolbar>
+      <button (click)="showFiller = !showFiller" mat-raised-button class="boton p-2 mx-3">
+        Ingresar
+      </button>
 
-<app-users></app-users>
-<app-toolbar></app-toolbar>
-
-  </div>
-
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+        <mat-toolbar class="toolbar">
+            <button  (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+              <mat-icon class="iconMenu">menu</mat-icon>
+            </button>
+            <span><img src="../../../assets/logo.jpg" alt="logo" class="logo"></span>
+            <span class="mx-2 text-xl text-yellow-600">Cursos online</span>
+            <span class="example-spacer"></span>
+            <div class="mx-auto">
+              <img src="../../../assets/perfil.jpg" alt="perfil" class="perfil">
+              <span class="text-white mx-auto"> Bienvenido: </span>
+              <span class="text-yellow-600">(Administrador)</span>
+            </div>
+            <span class="text-gray-400">{{ currentDateTime }}</span>
+          </mat-toolbar>
+          <div class="p-3">
+             <router-outlet></router-outlet>
+          </div>
+    </div>
 </mat-drawer-container>
+  

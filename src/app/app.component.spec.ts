@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'pf-linares'`, () => {
+  it(`should have as title 'Cursos Online'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('pf-linares');
+    expect(app.title).toEqual('Cursos Online');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, pf-linares');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hola!');
   });
 });

@@ -10,6 +10,9 @@ import { StudentsComponent } from './students.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    StudentsComponent,
   ]
 })
 export class StudentsModule { }

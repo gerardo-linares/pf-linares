@@ -1,12 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
+  currentDateTime: string = '';
+  showFiller = false;
 
-    showFiller = false;
+  constructor(private router: Router) {}
 
+  ngOnInit() {
+ 
+    setInterval(() => {
+      this.updateCurrentDateTime();
+    }, 1000);
+
+    this.updateCurrentDateTime();
+  }
+
+  private updateCurrentDateTime() {
+    const now = new Date();
+    this.currentDateTime = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+  }
+
+  logout(): void {
+    localStorage.removeItem('access-token');
+    this.router.navigate(['auth', 'login'],
+    );
+  }
 }
