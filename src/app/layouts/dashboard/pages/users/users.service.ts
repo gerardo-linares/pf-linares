@@ -1,81 +1,76 @@
 import { Injectable } from '@angular/core';
 import { User } from './models';
-import { Observable, of } from 'rxjs';
+import { Observable, of, mergeMap, catchError, throwError, tap } from 'rxjs';
 import { AlertsService } from '../../../../core/services/alerts.service';
+import { HttpClient, HttpErrorResponse  } from '@angular/common/http';
+import { enviroment } from '../../../../enviroments/enviroment';
+import { Pagination } from '../../../../core/models/pagination';
+import { UserWithCoursesAndInscriptions } from './models/complete';
 
-const ROLES_DB: string[] = ['Admin', 'User'];
+const ROLES_DB: string[] = ['ADMIN', 'USER', 'BUYER'];
 
-let USERS_DB: User[] = [
-  {
-    id: 1,
-    firstName: 'Pepe',
-    lastName: 'Notengo',
-    password: 'ggg123',
-    country: 'Argentina',
-    email: 'pepe@gmail.com',
-    rol: 'Admin',
-    course: 'Angular',
-   },
-   {
-     id: 2,
-     firstName: 'test1',
-     lastName: 'Apellido1',
-     password: 'ggg456',
-     country: 'España',
-     email: 'test1@gmail.com',
-     rol: 'User',
-     course: 'React',
-    },
-    {
-     id: 3,
-     firstName: 'test2',
-     lastName: 'Apellido2',
-     password: 'ggg789',
-     country: 'Colombia',
-     email: 'test2@gmail.com',
-     rol: 'User',
-     course: 'Python',
-    },
-];
+let USERS_DB: User[] = [];
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  constructor(private alerts: AlertsService) {}
+  constructor(private alerts: AlertsService, private httpClient: HttpClient) {}
 
-  getUsers(): Observable<User[]> {
-    return of(USERS_DB);
+  generateString(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
+   
+  paginate(page: number, perPage: number): Observable<Pagination<User>> {
+    return this.httpClient.get<Pagination<User>>(`${enviroment.apiURL}/users?_page=${page}&_per_page=${perPage}`);
   }
 
-  getUserById(id: number): Observable<User | undefined> {
-    return of(USERS_DB.find(user => user.id === id));
+  getUsers() {
+    return this.httpClient.get<User[]>(`${enviroment.apiURL}/users`);
+  }
+
+  getUserById(id: number | string) {
+    return this.httpClient.get<User>(`${enviroment.apiURL}/users/${id}`);
   }
 
   getRoles(): Observable<string[]> {
     return of(ROLES_DB);
   }
 
-  createUser(payload: User): Observable<User[]> {
-    USERS_DB = [...USERS_DB, {...payload, id: USERS_DB.length + 1}];
-    this.alerts.showSuccess('Success', 'User created successfully.');
-    return of(USERS_DB);
+  createUser(payload: User){
+    this.alerts.showSuccess('Exito', 'El usuario fue creado.');
+    return this.httpClient.post<User[]>(`${enviroment.apiURL}/users`, {...payload, token: this.generateString(5),})
+    .pipe(mergeMap(() => this.getUsers()));
   }
 
-  deleteUserById(userID: number): Observable<User[]> {
-    USERS_DB = USERS_DB.filter((user) => user.id !== userID);
-    this.alerts.showSuccess('Success', 'User deleted successfully.');
-    return of(USERS_DB);
+  deleteUserById(userID: number) {
+    return this.httpClient.delete<User>(`${enviroment.apiURL}/users/${userID}`)
+    .pipe(mergeMap(() => this.getUsers()));
   }
 
   updateUserById(updatedUser: User): Observable<User[]> {
-    const index = USERS_DB.findIndex(user => user.id === updatedUser.id);
-    if (index !== -1) {
-      USERS_DB[index] = updatedUser;
-      this.alerts.showSuccess('Success', 'User updated successfully.');
-    } else {
-      this.alerts.showError('Error', 'User not found.');
-    }
-    return of(USERS_DB);
+    return this.httpClient.put<User>(`${enviroment.apiURL}/users/${updatedUser.id}`, updatedUser)
+      .pipe(
+        mergeMap(() => {
+          this.alerts.showSuccess('Exito', 'El usuario fue editado');
+          return this.getUsers();
+        }),
+        catchError(error => {
+          this.alerts.showError('Error', 'Error al editar el usuario.');
+          return throwError(error);
+        })
+      );
+  }
+  
+  getUserDetails(userId: string): Observable<User> {
+    const url = `${enviroment.apiURL}/users/${userId}`;
+    return this.httpClient.get<User>(url).pipe(
+    );
   }
 }

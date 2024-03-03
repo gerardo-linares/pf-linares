@@ -1,0 +1,73 @@
+<h2 mat-dialog-title appUppercaseTitles class="text-black p-3 text-center bg-white/80 rounded mb-8 text-2xl">Agregar Alumno</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="buyerFormEdit" class="py-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="firstName" placeholder="Ingresa el Nombre">
+        <mat-error>{{ buyerFormEdit.get('firstName')?.errors | validationErrors }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="lastName" placeholder="Ingresa el Apellido">
+        <mat-error>{{ buyerFormEdit.get('lastName')?.errors | validationErrors }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field">
+        <mat-label>Contraseña</mat-label>
+        <input [type]="revealPassword ? 'text' : 'password'" formControlName='password' matInput/>
+        <button (click)='revealPassword = !revealPassword' matSuffix mat-icon-button >
+            <mat-icon>visibility</mat-icon>
+        </button>
+        <mat-error>{{ buyerFormEdit.get('password')?.errors | validationErrors }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Pais</mat-label>
+        <input matInput formControlName="country" placeholder="Ingresa el Pais">
+        <mat-error>{{ buyerFormEdit.get('country')?.errors | validationErrors }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field" appearance="fill">
+        <mat-label>Correo</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="Ingresa el Correo">
+        <mat-error>{{ buyerFormEdit.get('email')?.errors | validationErrors }}</mat-error>
+      </mat-form-field>
+
+      
+      <mat-form-field class="example-form-field">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="rol">
+          <mat-option value="BUYER">ALUMNO</mat-option>
+        </mat-select>
+        <mat-error>{{ buyerFormEdit.get('rol')?.errors | validationErrors }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-form-field">
+        <mat-label>Comision</mat-label>
+        <mat-select formControlName="comision">
+          <mat-option value="JavaScript">JavaScript</mat-option>
+          <mat-option value="Vue">Vue</mat-option>
+          <mat-option value="Python">Python</mat-option>
+          <mat-option value="Pastry">Java</mat-option>
+          <mat-option value="React">React</mat-option>
+          <mat-option value="Angular">Angular</mat-option>
+          <mat-option value="CSS">CSS</mat-option>
+          <mat-option value="Figma">Figma</mat-option>
+          <mat-option value="SQL">SQL</mat-option>
+          <mat-option value="DesarrolloWeb">Desarrollo Web</mat-option>
+          <mat-option value="ReactNative">React Native</mat-option>
+        </mat-select>
+        <mat-error>{{ buyerFormEdit.get('comision')?.errors | validationErrors }}</mat-error>
+      </mat-form-field>
+
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="flex justify-center">
+  <button mat-raised-button  class="boton" (click)="onSave()">Guardar</button>
+  <button mat-raised-button class="boton"  mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>

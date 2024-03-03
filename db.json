@@ -1,0 +1,252 @@
+{
+  "users": [
+    {
+      "firstName": "John1",
+      "lastName": "Doeff2",
+      "password": "112233",
+      "country": "United States",
+      "email": "asdasd@gmail.com",
+      "rol": "ADMIN",
+      "comision": "React",
+      "id": "123abffc"
+    },
+    {
+      "id": "456def",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "password": "password456",
+      "country": "Canada",
+      "email": "janesmith@gmail.com",
+      "rol": "USER",
+      "comision": "Vue",
+      "token": "token456"
+    },
+    {
+      "id": "5a40",
+      "firstName": "fffff",
+      "lastName": "fffff",
+      "password": "123123",
+      "country": "asdasd",
+      "email": "asd@asd.com",
+      "rol": "USER",
+      "comision": "React",
+      "token": "5iPwg"
+    },
+    {
+      "id": "789ghi",
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "password": "password789",
+      "country": "United Kingdom",
+      "email": "alicejohnson@gmail.com",
+      "rol": "ADMIN",
+      "comision": "DesarrolloWeb",
+      "token": "token789"
+    },
+    {
+      "id": "def456",
+      "firstName": "Sophia",
+      "lastName": "Garcia",
+      "password": "garcia456",
+      "country": "Spain",
+      "email": "sophiagarcia@gmail.com",
+      "rol": "ADMIN",
+      "comision": "Angular",
+      "token": "tokendef"
+    },
+    {
+      "id": "0452",
+      "firstName": "testfin",
+      "lastName": "testtest",
+      "password": "123123",
+      "country": "Argentina",
+      "email": "testfin@mail.com",
+      "rol": "ADMIN",
+      "comision": "Vue",
+      "token": "CV0g0"
+    }
+  ],
+  "courses": [
+    {
+      "courseName": "JavaScript",
+      "createdAt": "2022-11-20T03:05:00.000Z",
+      "id": "sa111"
+    },
+    {
+      "courseName": "Vue",
+      "createdAt": "2024-12-20T03:00:00.000Z",
+      "id": "saas1"
+    },
+    {
+      "courseName": "Python",
+      "createdAt": "2024-07-30T03:03:00Z",
+      "id": "dsad2"
+    },
+    {
+      "courseName": "Java",
+      "createdAt": "2024-08-17T03:00:00.000Z",
+      "id": "3dsad"
+    },
+    {
+      "id": "fdsa4",
+      "courseName": "React",
+      "createdAt": "2024-05-22T01:22:00Z"
+    },
+    {
+      "id": "745d",
+      "courseName": "Angular",
+      "createdAt": "2024-02-29T03:00:00.000Z",
+      "token": "pw9YS"
+    },
+    {
+      "id": "dc3a",
+      "courseName": "CSS",
+      "createdAt": "2024-04-24T03:00:00.000Z",
+      "token": "TjFAM"
+    },
+    {
+      "id": "096d",
+      "courseName": "Figma",
+      "createdAt": "2024-02-29T03:00:00.000Z",
+      "token": "Y7oqT"
+    },
+    {
+      "courseName": "SQL",
+      "createdAt": "2025-11-22T03:00:00.000Z",
+      "id": "6595",
+      "token": "TjFAMs"
+    },
+    {
+      "id": "f527",
+      "courseName": "DesarrolloWeb",
+      "createdAt": "2024-04-26T03:00:00.000Z",
+      "token": "zQpFm"
+    }
+  ],
+  "inscriptions": [
+    {
+      "id": "4e14",
+      "buyerId": "002b",
+      "courseId": "fdsa4"
+    },
+    {
+      "id": "4354",
+      "buyerId": "6232",
+      "courseId": "dsad2"
+    },
+    {
+      "id": "5805",
+      "buyerId": "7sd4f",
+      "courseId": "3dsad"
+    },
+    {
+      "id": "25fc",
+      "buyerId": "3b4f",
+      "courseId": "096d"
+    },
+    {
+      "id": "e518",
+      "buyerId": "d3as",
+      "courseId": "saas1"
+    },
+    {
+      "id": "3fe9",
+      "buyerId": "d3as",
+      "courseId": "saas1"
+    },
+    {
+      "id": "9b52",
+      "buyerId": "7sd4f",
+      "courseId": "dsad2"
+    }
+  ],
+  "buyers": [
+    {
+      "firstName": "Sakura",
+      "lastName": "Haruno",
+      "password": "cherryblossom",
+      "country": "Japan",
+      "email": "sakura.haruno@gmail.com",
+      "rol": "ALUMNO",
+      "comision": "Java",
+      "id": "as2d"
+    },
+    {
+      "id": "d3as",
+      "firstName": "Hinata",
+      "lastName": "Hyuga",
+      "password": "byakugan",
+      "country": "Japan",
+      "email": "hinata.hyuga@gmail.com",
+      "rol": "ALUMNO",
+      "comision": "JavaScript",
+      "token": "c1231"
+    },
+    {
+      "firstName": "Naruto",
+      "lastName": "Uzumaki",
+      "password": "rasengan",
+      "country": "Japan",
+      "email": "naruto.uzumaki@gmail.com",
+      "rol": "ALUMNO",
+      "comision": "SQL",
+      "id": "6232",
+      "token": "11s32"
+    },
+    {
+      "firstName": "Sasuke",
+      "lastName": "Uchiha",
+      "password": "sharingan",
+      "country": "Japan",
+      "email": "sasuke.uchiha@gmail.com",
+      "rol": "ALUMNO",
+      "comision": "React",
+      "id": "7sd4f",
+      "token": "d1aaa"
+    },
+    {
+      "firstName": "Kakashi",
+      "lastName": "Hatake",
+      "password": "sharingan",
+      "country": "Japan",
+      "email": "kakashi.hatake@gmail.com",
+      "rol": "ALUMNO",
+      "comision": "Angular",
+      "id": "002b",
+      "token": "d1222"
+    },
+    {
+      "id": "3b4f",
+      "firstName": "Shikamaru",
+      "lastName": "Nara",
+      "password": "shadow",
+      "country": "Japan",
+      "email": "shikamaru.nara@gmail.com",
+      "rol": "ALUMNO",
+      "comision": "Angular",
+      "token": "KqgkO"
+    },
+    {
+      "id": "a455",
+      "firstName": "Ino",
+      "lastName": "Yamanaka",
+      "password": "flower",
+      "country": "Japan",
+      "email": "ino.yamanaka@mail.com",
+      "rol": "ALUMNO",
+      "comision": "ReactNative",
+      "token": "eMEbR"
+    },
+    {
+      "id": "658b",
+      "firstName": "Rock",
+      "lastName": "Lee",
+      "password": "hardwork",
+      "country": "Japan",
+      "email": "rock.lee@mail.com",
+      "rol": "ALUMNO",
+      "comision": "React",
+      "token": "Fd02Y"
+    }
+  ]
+}

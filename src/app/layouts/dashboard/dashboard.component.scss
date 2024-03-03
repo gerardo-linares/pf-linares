@@ -4,9 +4,7 @@
 .logo{
   width: 85px;
 }
-.toolbar{
-  background-color: rgb(26, 25, 25);
-}
+
 .iconMenu{
   background-color: white;
   border-radius: 10px;
@@ -14,26 +12,39 @@
   width: 25px;
 }
 .perfil{
-  width: 35px;
+  width: 30px;
   border-radius: 100px;
 }
 .side{
-  background-color: rgb(26, 25, 25);
-  border-right: 2px solid goldenrod;
+  background-color: #fffbfb;
+  background-image: linear-gradient(0deg, #c9c9c9 70%, #D500F9 90%);
+  border-right: 2px solid #D500F9;
 }
-.listLinks{
-  background: rgba(255, 255, 255, 0.734);
-}
-.listLinks:hover{
-  background-color: goldenrod;
+.listItem:hover{
+  background-color: #D500F9;
+  background-image: linear-gradient(43deg, #D500F9 0%, #ffff 46%, #ffff 100%);
   cursor: pointer ;
+  
 }
 .boton{
   background: white;
 }
 .boton:hover{
- border: solid 2px goldenrod;
+border: solid 2px #D500F9;
 }
-.fondo{
-  background-color: aliceblue;
+
+.icon-white {
+  color: rgb(39, 37, 37);
+}
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.listLinks{
+  color: white;
+  font-size: bold;
+  padding-left: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }

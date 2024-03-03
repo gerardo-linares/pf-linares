@@ -1,4 +1,4 @@
-<h2 mat-dialog-title appUppercaseTitles class="text-black p-3 text-center bg-white/80 rounded mb-8">Usuario</h2>
+<h2 mat-dialog-title appUppercaseTitles class="text-black p-3 text-center bg-white/80 rounded mb-8 text-2xl">Usuario</h2>
 
 <mat-dialog-content>
   <form [formGroup]="userFormEdit" class="py-10">
@@ -6,50 +6,67 @@
       <mat-form-field class="example-form-field">
         <mat-label class="pt-4">Nombre</mat-label>
         <input matInput formControlName="firstName" type="text">
+        <mat-error>{{ userFormEdit.get('firstName')?.errors | validationErrors }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-form-field">
         <mat-label>Apellido</mat-label>
         <input matInput formControlName="lastName" type="text">
+        <mat-error>{{ userFormEdit.get('lastName')?.errors | validationErrors }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-form-field">
         <mat-label>Contraseña</mat-label>
-        <input matInput formControlName="password" type="password">
+        <input [type]="revealPassword ? 'text' : 'password'" formControlName='password' matInput/>
+        <button (click)='revealPassword = !revealPassword' matSuffix mat-icon-button >
+            <mat-icon>visibility</mat-icon>
+        </button>
+        <mat-error>{{ userFormEdit.get('password')?.errors | validationErrors }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-form-field">
         <mat-label>Pais</mat-label>
         <input matInput formControlName="country" type="text">
+        <mat-error>{{ userFormEdit.get('country')?.errors | validationErrors }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-form-field">
         <mat-label>Correo</mat-label>
         <input matInput formControlName="email" type="email">
+        <mat-error>{{ userFormEdit.get('email')?.errors | validationErrors }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-form-field">
         <mat-label>Rol</mat-label>
         <mat-select formControlName="rol">
-          <mat-option value="Admin">Administrador</mat-option>
-          <mat-option value="User">Usuario</mat-option>
+          <mat-option value="ADMIN">ADMIN</mat-option>
+          <mat-option value="USER">USER</mat-option>
         </mat-select>
+        <mat-error>{{ userFormEdit.get('rol')?.errors | validationErrors }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="example-form-field">
-        <mat-label>Curso</mat-label>
-        <mat-select formControlName="course">
-          <mat-option value="Angular">Angular</mat-option>
-          <mat-option value="React">React</mat-option>
+        <mat-label>Comision</mat-label>
+        <mat-select formControlName="comision">
           <mat-option value="JavaScript">JavaScript</mat-option>
+          <mat-option value="Vue">Vue</mat-option>
           <mat-option value="Python">Python</mat-option>
+          <mat-option value="Pastry">Java</mat-option>
+          <mat-option value="React">React</mat-option>
+          <mat-option value="Angular">Angular</mat-option>
+          <mat-option value="CSS">CSS</mat-option>
+          <mat-option value="Figma">Figma</mat-option>
+          <mat-option value="SQL">SQL</mat-option>
+          <mat-option value="DesarrolloWeb">Desarrollo Web</mat-option>
+          <mat-option value="ReactNative">React Native</mat-option>
         </mat-select>
+        <mat-error>{{ userFormEdit.get('comision')?.errors | validationErrors }}</mat-error>
       </mat-form-field>
     </div>
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close class="boton">Cancelar</button>
+<mat-dialog-actions class="flex justify-center">
   <button mat-button (click)="onSave()" class="boton">Guardar</button>
+  <button mat-button mat-dialog-close class="boton">Cancelar</button>
 </mat-dialog-actions>

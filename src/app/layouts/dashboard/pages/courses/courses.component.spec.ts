@@ -1,23 +1,46 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
+import { CoursesComponent } from "./courses.component";
+import { MockProvider } from 'ng-mocks';
+import { CoursesService } from "./courses.service";
+import { of } from "rxjs";
 
-import { CoursesComponent } from './courses.component';
-
-describe('CoursesComponent', () => {
+describe('courses tests', () => {
   let component: CoursesComponent;
-  let fixture: ComponentFixture<CoursesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CoursesComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(CoursesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      declarations: [CoursesComponent],
+      providers:[MockProvider(CoursesService, {
+        getCourses: () => of ([
+            {
+              id: 1,
+              courseName: 'Java',
+              createdAt: new Date (),
+            },
+            {
+              id: 2,
+              courseName: 'SQL',
+              createdAt: new Date (),
+            },
+            {
+              id: 3,
+              courseName: 'Python',
+              createdAt: new Date (),
+            },
+            {
+              id: 4,
+              courseName: 'Vue',
+              createdAt: new Date (),
+          },])
+      })],
+    }); 
+    component = TestBed.createComponent(CoursesComponent).componentInstance;
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('Courses column table are (displayedColumns): "id", "courseName", "createdAt", "actions"', () => {
+    expect(component.displayedColumns).toContain('id');
+    expect(component.displayedColumns).toContain('courseName'); 
+    expect(component.displayedColumns).toContain('createdAt');
+    expect(component.displayedColumns).toContain('actions');
   });
 });

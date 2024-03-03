@@ -1,46 +1,54 @@
-<mat-drawer-container class="dashboard-container fondo" autosize>
-    <mat-drawer #drawer class="side" mode="side">
-      <span><img src="../../../assets/logo.jpg" alt="logo" class="logo mx-auto pt-2"></span>
-      @if (showFiller) {
-        <div class="text-white text-center">
-        Ingresar
-        </div>
-      }
+<mat-drawer-container class="dashboard-container bg-bgPrimary" autosize>
+  <mat-drawer #drawer class="bg-bgPrimary" mode="side">
+    <span><img src="../../../assets/logo.png" alt="logo" class="logo mx-auto my-5"></span>
 
-      <mat-nav-list role="list" class="py-5 text-center">
-        <a #homeLink="routerLinkActive" routerLinkActive [activated]="homeLink.isActive" routerLink='home' mat-list-item class="listLinks">Inicio</a>
-        <a #usersLink='routerLinkActive' routerLinkActive [activated]="usersLink.isActive" routerLink='users' mat-list-item class="listLinks">Usuarios</a>
-        <a #coursesLink='routerLinkActive' routerLinkActive [activated]="coursesLink.isActive" routerLink='courses' mat-list-item class="listLinks">Cursos</a>
-        <a (click)="logout()" mat-list-item class="listLinks">Salir</a>
-      </mat-nav-list>
+    <mat-nav-list role="list" class="py-5 text-center">
+      <div class="listItem pl-3">
+        <mat-icon class="icon-white">home</mat-icon>
+        <a #homeLink="routerLinkActive" routerLinkActive [activated]="homeLink.isActive" routerLink='home' mat-list-item class="listLinks text-white text-xl">Inicio</a>
+      </div>
+      <div class="listItem pl-3">
+        <mat-icon class="icon-white">person</mat-icon>
+        <a #usersLink='routerLinkActive' routerLinkActive [activated]="usersLink.isActive" routerLink='users' mat-list-item class="listLinks text-white text-xl">Usuarios</a>
+      </div>
+      <div class="listItem pl-3">
+        <mat-icon class="icon-white">school</mat-icon>
+        <a #coursesLink='routerLinkActive' routerLinkActive [activated]="coursesLink.isActive" routerLink='courses' mat-list-item class="listLinks text-xl">Cursos</a>
+      </div>
+      <div class="listItem pl-3">
+        <mat-icon class="icon-white">group</mat-icon>
+        <a #buyersLink='routerLinkActive' routerLinkActive [activated]="buyersLink.isActive" routerLink='buyers' mat-list-item class="listLinks text-xl">Alumnos</a>
+      </div>
+      <div class="listItem pl-3 mb-8">
+        <mat-icon class="icon-white">account_box</mat-icon>
+        <a #inscriptionsLink="routerLinkActive" routerLinkActive [activated]="inscriptionsLink.isActive" routerLink="inscriptions" mat-list-item class="listLinks text-xl text-white">Inscripciones</a>
+      </div>
+      <div class="listItem pl-3">
+        <mat-icon class="icon-white text-xl">enhanced_encryption</mat-icon>
+        <a (click)="logout()" mat-list-item  class="listLinks text-xl">Salir</a>
+      </div>
+    </mat-nav-list>
+  </mat-drawer>
 
-      <button  mat-raised-button class="boton p-2 m-2">
-        Registrarse
-      </button>
-      <button (click)="showFiller = !showFiller" mat-raised-button class="boton p-2 mx-3">
-        Ingresar
-      </button>
+  <div class="example-sidenav-content">
+      <mat-toolbar class="bg-bgPrimary p-2">
+          <button  (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon class="iconMenu">menu</mat-icon>
+          </button>
+          <span><img src="../../../assets/logo.png" alt="logo" class="logo"></span>
+          <span class="mx-2 text-2xl ">Cursos Online</span>
+          <span class="example-spacer"></span>
+          <div class="mx-auto" *ngIf="authUser$ | async">
+            <img src="../../../assets/perfil.jpg" alt="perfil" class="perfil mx-auto ">
+            <span class=" mx-auto">{{ (authUser$ | async)?.firstName }} {{ (authUser$ | async)?.lastName }}</span>
 
-    </mat-drawer>
-  
-    <div class="example-sidenav-content">
-        <mat-toolbar class="toolbar">
-            <button  (click)="drawer.toggle()" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-              <mat-icon class="iconMenu">menu</mat-icon>
-            </button>
-            <span><img src="../../../assets/logo.jpg" alt="logo" class="logo"></span>
-            <span class="mx-2 text-xl text-yellow-600">Cursos online</span>
-            <span class="example-spacer"></span>
-            <div class="mx-auto">
-              <img src="../../../assets/perfil.jpg" alt="perfil" class="perfil">
-              <span class="text-white mx-auto"> Bienvenido: </span>
-              <span class="text-yellow-600">(Administrador)</span>
-            </div>
-            <span class="text-gray-400">{{ currentDateTime }}</span>
-          </mat-toolbar>
-          <div class="p-3">
-             <router-outlet></router-outlet>
+            <span class="text-gray-400">: {{ (authUser$ | async)?.rol }}</span>
           </div>
-    </div>
+          <span class="text-gray-400">{{ currentDateTime }}</span>
+        </mat-toolbar>
+        <div class="p-3">
+           <router-outlet></router-outlet>
+        </div>
+  </div>
 </mat-drawer-container>
-  
+

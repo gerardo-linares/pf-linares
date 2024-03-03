@@ -1,0 +1,26 @@
+<h2 mat-dialog-title appUppercaseTitles class="text-black p-3 text-center bg-white/80 rounded mb-8 text-xl">Cursos</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="coursesEditForm">
+    <mat-form-field>
+      <mat-label>Nombre del Curso</mat-label>
+      <input matInput formControlName="courseName">
+      <mat-error *ngIf="coursesEditForm.get('courseName')?.hasError('required')">Nombre de curso es requerido</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field class="p-3">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="dateCreatorPicker" formControlName="createdAt" class="p-2">
+      <mat-datepicker-toggle matSuffix [for]="dateCreatorPicker"></mat-datepicker-toggle>
+      <mat-datepicker #dateCreatorPicker></mat-datepicker>
+      <mat-error *ngIf="coursesEditForm.get('createdAt')?.hasError('required')">Fecha es requerida</mat-error>
+    </mat-form-field>
+    
+  </form>
+  
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="onSave()" class="boton">Guardar</button>
+    <button mat-button mat-dialog-close class="boton">Cancelar</button>
+</mat-dialog-actions>

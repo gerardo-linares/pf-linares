@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './models';
-import { UsersService } from './users.service';
+import { UsersService} from './users.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertsService } from '../../../../core/services/alerts.service';
 import { UsersDialogComponent } from './components/users-dialog/users-dialog.component';
 import { Subject } from 'rxjs';
+import { Pagination } from '../../../../core/models/pagination';
+import { PageEvent } from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-users',
@@ -12,8 +15,12 @@ import { Subject } from 'rxjs';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'fullName', 'password', 'country', 'email', 'rol', 'course', 'actions'];
+  displayedColumns: string[] = ['id', 'fullName', 'password', 'country', 'email', 'rol', 'comision', 'actions'];
   users: User[] = [];
+
+  totalItems =0;
+  pageSize=5;
+  currentPage = 1;
 
   private userSavedSubject: Subject<void> = new Subject<void>();
 
@@ -27,9 +34,10 @@ export class UsersComponent implements OnInit {
   }
 
   loadUsers(): void {
-    this.usersService.getUsers().subscribe({
-      next: (users: User[]) => {
-        this.users = users;
+    this.usersService.paginate(this.currentPage, this.pageSize).subscribe({
+      next: (paginationResult: Pagination<User>) => {
+        this.users = paginationResult.data;
+        this.totalItems = paginationResult.items;
       },
       error: (error: any) => {
         console.error('Error loading users:', error);
@@ -38,6 +46,17 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  onPage(ev: PageEvent) {
+    this.usersService.paginate(ev.pageIndex + 1, ev.pageSize).subscribe({
+      next: (paginateResult) => {
+        this.totalItems = paginateResult.items;
+        this.users = paginateResult.data;
+        this.pageSize = ev.pageSize;
+        this.currentPage = ev.pageIndex + 1; 
+      }
+    });
+  }
+  
   onCreate(): void {
     this.dialog.open(UsersDialogComponent)
       .afterClosed()
@@ -70,14 +89,10 @@ export class UsersComponent implements OnInit {
           next: () => {
             this.loadUsers(); 
             this.alertsService.showSuccess('Success', 'User updated successfully.');
-            
-
             this.users = this.users.filter(u => u.id !== user.id);
-
             this.users.push(result);
           },
           error: (error: any) => {
-            console.error('Error updating user:', error);
             this.alertsService.showError('Error', 'An error occurred while updating the user.');
           }
         });
@@ -85,7 +100,6 @@ export class UsersComponent implements OnInit {
       }
     });
   }
-  
 
   deleteUser(user: User): void {
     this.alertsService.showAlert({

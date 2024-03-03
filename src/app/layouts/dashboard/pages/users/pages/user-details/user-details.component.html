@@ -1,1 +1,26 @@
-<p>user-details works!</p>
+<div *ngIf="user">
+    <div class="boton rounded-md">
+        <button mat-raised-button (click)="goBackToList()">Volver</button>
+    </div>
+    <mat-card class="user-card mx-auto px-auto">
+        <mat-card-header>
+            <mat-card-title class="text-black bg-bgPrimary rounded mb-8 text-4xl ">Detalle de Usuario</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p><strong>ID:</strong> {{ user.id }}</p>
+            <p><strong>Nombre:</strong> {{ user.firstName }} {{ user.lastName }}</p>
+            <p><strong>Contraseña:</strong> {{ user.password }}</p>
+            <p><strong>Pais:</strong> {{ user.country }}</p>
+            <p><strong>Correo:</strong> {{ user.email }}</p>
+            <p><strong>Rol:</strong> {{ user.rol }}</p>
+            <p><strong>Comision:</strong> {{ user.comision }}</p>
+        </mat-card-content>
+    </mat-card>
+
+    <div class="boton rounded-md">
+        <button mat-raised-button  (click)="editUser(user)">Editar</button>
+    </div>
+    <div class="boton rounded-md">
+        <button mat-raised-button color="warn" (click)="deleteUser(user)">Eliminar</button>
+    </div>
+</div>

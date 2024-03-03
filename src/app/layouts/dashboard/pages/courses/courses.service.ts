@@ -1,53 +1,75 @@
 import {Injectable} from '@angular/core';
-import { of, delay, finalize } from 'rxjs';
+import { of, Observable, mergeMap, catchError, throwError, map } from 'rxjs';
 import { Courses } from './models/index'
 import { LoadingService } from '../../../../core/services/loading.service';
+import { HttpClient } from '@angular/common/http';
+import { enviroment } from '../../../../enviroments/enviroment';
+import { AlertsService } from '../../../../core/services/alerts.service';
+import { Inscription } from '../inscriptions/models';
+import { Course } from '../users/models/complete';
 
-    let courses: Courses [] = [
-        {
-          id: 1,
-          courseName: 'Angular',
-          createdAt: new Date (),
-        },
-        {
-          id: 2,
-          courseName: 'React',
-          createdAt: new Date (),
-        },
-        {
-          id: 3,
-          courseName: 'JavaScript',
-          createdAt: new Date (),
-        },
-        {
-          id: 4,
-          courseName: 'Python',
-          createdAt: new Date (),
-        }
-    ];
+    let courses: Courses [] = [];
 
     @Injectable()
     export class CoursesService {
+      constructor( private alerts: AlertsService, private loadingService: LoadingService, private httpClient: HttpClient, private alertsService: AlertsService) {}
 
-      constructor(private loadingService: LoadingService) {}
-
-      getCourses(){
-        this.loadingService.setIsLoading(true)
-        return of (courses).pipe(delay(1000), finalize(() => this.loadingService.setIsLoading(false)))
+      generateString(length: number): string {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+      }
+      
+      getInscriptionsByCourseId(courseId: string): Observable<Inscription[]> {
+        return this.httpClient.get<Inscription[]>(`${enviroment.apiURL}/inscriptions/course/${courseId}`)
+          .pipe(
+            catchError(error => {
+              return throwError(error);
+            })
+          );
       }
 
+      getCourses(): Observable<Courses[]> {
+        return this.httpClient.get<any[]>(`${enviroment.apiURL}/courses`).pipe(
+          map(coursesData => {
+            return coursesData.map((courseData: any, index: number) => {
+              if (!courseData.id) {
+                courseData.id = `generatedId_${index}`; 
+              }
+              return courseData as Courses;
+            });
+          })
+        );
+      }
+
+      getCoursesById(courseId: string): Observable<Courses> {
+        return this.httpClient.get<Courses>(`${enviroment.apiURL}/courses/${courseId}`);
+      }
+      
       createCourses(data: Courses) {
-        courses = [...courses, {...data, id: courses.length + 1 }];
-        return this.getCourses();
+        this.alerts.showSuccess('Exito', 'Curso fue creado.');
+        return this.httpClient.post<Courses[]>(`${enviroment.apiURL}/courses`,  {...data, token: this.generateString(5),});
       }
 
-      deleteCoursesById (id: number) {
-        courses = courses.filter((el) => el.id != id);
-        return of (courses);
+      deleteCoursesById (courseID: number) {
+        return this.httpClient.delete<Courses>(`${enviroment.apiURL}/courses/${courseID}`)
+       .pipe(mergeMap(() => this.getCourses()));
       }
-     
-      updateCoursesById(id: number, data: Courses){
-        courses = courses.map((el) =>(el.id === id ? {...el, ...data} : el));
-        return this.getCourses();
+      updateCoursesById(course: Courses): Observable<Courses[]> {
+        return this.httpClient.put<Courses>(`${enviroment.apiURL}/courses/${course.id}`, course)
+          .pipe(
+            mergeMap(() => {
+              this.alertsService.showSuccess('Exito', 'El curso fue editado.');
+              return this.getCourses();
+            }),
+            catchError(error => {
+              this.alertsService.showError('Error', 'Falla al editar el curso.');
+              throw error;
+            })
+          );
       }
-}
+  }   

@@ -12,6 +12,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../shared/shared.module';
+import { BuyersModule } from './pages/buyers/buyers.module';
+import { InscriptionsModule } from './pages/inscriptions/inscriptions.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
@@ -30,6 +34,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    BuyersModule,
+    InscriptionsModule,
   ],
   exports: [DashboardComponent],
 })

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +8,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatNativeDateModule } from '@angular/material/core';
 import { AlertsService } from './core/services/alerts.service';
 import { UsersService } from './layouts/dashboard/pages/users/users.service';
+import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { appReducers } from './core/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -20,6 +25,10 @@ import { UsersService } from './layouts/dashboard/pages/users/users.service';
     RouterModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,
+    HttpClientModule,
+    StoreModule.forRoot(appReducers, {}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
   ],
   providers: [
     AlertsService,

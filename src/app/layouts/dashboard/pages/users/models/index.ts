@@ -1,10 +1,17 @@
+import { Course } from "./complete";
+import { Inscription } from "../../inscriptions/models";
+
 export interface User {
-    id: number;
-    firstName: string;
-    lastName: string;
-    password:string;
-    country: string;
-    email:string;
-    rol:string;
-    course: string;
-  }
+  id: number;
+  firstName: string;
+  lastName: string;
+  password: string;
+  country: string;
+  email: string;
+  rol: string;
+  comision: string;
+  token: string;
+  courses: Course[]; 
+  inscriptions: Inscription[];
+}
+

@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { User } from './pages/users/models';
+import { selectAuthUser } from '../../core/store/auth/selectors';
+import { AlertsService } from '../../core/services/alerts.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,11 +15,13 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   currentDateTime: string = '';
   showFiller = false;
+  authUser$: Observable<User | null>;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService, private store: Store, private alertsService: AlertsService) {
+    this.authUser$ = this.store.select(selectAuthUser);
+  }
 
   ngOnInit() {
- 
     setInterval(() => {
       this.updateCurrentDateTime();
     }, 1000);
@@ -27,8 +35,19 @@ export class DashboardComponent implements OnInit {
   }
 
   logout(): void {
-    localStorage.removeItem('access-token');
-    this.router.navigate(['auth', 'login'],
-    );
+    this.alertsService.showAlert({
+      title: 'Confirmar Salida',
+      text: '¿Estás Seguro de salir?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Quiero salir',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['auth', 'login']);
+        this.authService.logout();
+        this.alertsService.showSuccess('¡Gracias!', 'Hasta pronto.');
+      }
+    });
   }
 }
